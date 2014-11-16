@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+"
+    href="play.jnlp">
+    <information>
+        <title>Nightfall</title>
+        <vendor>Iikka</vendor>
+    </information>
+    <resources>
+        <!-- Application Resources -->
+        <j2se version="1.7+"
+              href="http://java.sun.com/products/autodl/j2se"/>
+        <jar href="nightfall.jar" />
+
+    </resources>
+    <security>
+<all-permissions/>
+</security>
+    <applet-desc main-class="game.TestApp" name="Nightfall" width="1000" height="600">
+     </applet-desc>
+</jnlp> 

@@ -1,0 +1,9 @@
+{
+	"inventory" : {
+		"agents" : [],
+		"credits" : 0
+	},
+	"defeated" : [
+		"game/main"
+	]
+}

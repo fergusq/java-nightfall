@@ -1,0 +1,14 @@
+{	
+	"nodes" : [
+		{
+			"name" : "game/main",
+			"title" : "Root node",
+			"desc" : "ROOT",
+			"image" : "NodeHQ.png",
+			"pos" : [ 0, 0 ],
+			"warez" : [],
+			"status" : "open"
+		}
+	],
+	"links" : []
+}
