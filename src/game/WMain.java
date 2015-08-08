@@ -34,7 +34,7 @@ public class WMain extends CoreFrame {
 	
     public static void main(String[] args) {
     	WMain main = new WMain();
-    	Frame window = new Frame();
+    	final Frame window = new Frame();
     	window.add(main);
     	window.setTitle("Nightfall");
     	window.setSize(WIDTH, 640);
