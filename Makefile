@@ -10,5 +10,5 @@ classes:
 build/game/WMain.class: src/game/WMain.java
 	javac -sourcepath src src/game/WMain.java -d build
 
-nightfall.jar: build/game/WMain.class
+nightfall.jar: classes build/game/WMain.class
 	jar cvf nightfall.jar -C build/ .

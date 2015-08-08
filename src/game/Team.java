@@ -50,6 +50,14 @@ public class Team {
 		mNumAgents = n;
 	}
 
+	public void collectData() {
+		mTmpData += 1;
+	}
+	
+	public int getCollectedData() {
+		return mTmpData;
+	}
+	
 	public void collectCredit(int credit) {
 		mTmpCredit += credit;
 	}
@@ -63,7 +71,7 @@ public class Team {
 		return mTmpCredit;
 	}
 
-	private int mTmpCredit;
+	private int mTmpCredit, mTmpData;
 	
 	private int mNumAgents = 0;
 	private Color mColor;

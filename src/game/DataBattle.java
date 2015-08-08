@@ -31,6 +31,7 @@ public class DataBattle {
 		boolean Upload = false;
 		boolean Select = false;
 		boolean Flood = false;
+		boolean Data = false;
 		int FloodNum = 0;
 		boolean Filled = true;
 		int Credit = 0;
@@ -113,6 +114,21 @@ public class DataBattle {
 			mListeners.add(l);
 		}
 		private ArrayList<ListenerCreditCollect> mListeners = new ArrayList<ListenerCreditCollect>();
+	}
+
+	//signal data collected
+	public static interface ListenerDataCollect {
+		public void onDataCollect(Vec pos);
+	}
+	public static class SignalDataCollect {
+		public void fire(Vec pos) {
+			for (ListenerDataCollect l : mListeners)
+				l.onDataCollect(pos);
+		}
+		public void connect(ListenerDataCollect l) {
+			mListeners.add(l);
+		}
+		private ArrayList<ListenerDataCollect> mListeners = new ArrayList<ListenerDataCollect>();
 	}
 	
 	//signal board change
@@ -313,6 +329,7 @@ public class DataBattle {
 	public final SignalAgentExpand onAgentExpand = new SignalAgentExpand();
 	public final SignalAgentMove onAgentMove = new SignalAgentMove();
 	public final SignalCreditCollect onCreditCollect = new SignalCreditCollect();
+	public final SignalDataCollect onDataCollect = new SignalDataCollect();
 	public final SignalBoardChange onBoardChange = new SignalBoardChange();
 	
 	private final NodeMap.Node mTarget;
@@ -324,12 +341,3 @@ public class DataBattle {
 	private Vec mBoardSize;
 	private final Tile[][] mBoard;
 }
-
-
-
-
-
-
-
-
-

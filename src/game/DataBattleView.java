@@ -15,6 +15,8 @@ import game.DataBattle.ListenerAgentDamage;
 import game.DataBattle.ListenerAgentModify;
 import game.DataBattle.ListenerAgentExpand;
 import game.DataBattle.ListenerBoardChange;
+import game.DataBattle.ListenerCreditCollect;
+import game.DataBattle.ListenerDataCollect;
 import game.DataBattle.TileOverlay;
 import gui.*;
 import gui.WidgetText.TextAlign;
@@ -378,7 +380,7 @@ public class DataBattleView extends Widget {
 	
 	/***************************************/
 	/***************************************/
-	/***************************************/		
+	/***************************************/
 	public class ActionWinLoss implements IAction {
 		public ActionWinLoss() {
 			mWidget = new WidgetRect();
@@ -840,14 +842,16 @@ public class DataBattleView extends Widget {
 						
 						//any credits on the tile?
 						if (tl.Credit > 0) {
-							
 							int centerx = tlx+TILE_SIZE/2;
 							int centery = tly+TILE_SIZE/2;
-							/*g.setColor(CREDIT_COLOR);
-							g.drawRect(centerx-1, centery-1, 3, 3);
-							g.drawRect(centerx-3, centery-3, 7, 7);
-							*/
 							g.drawImage(CREDIT_IMAGE, centerx-7, centery-7, null);
+						}
+						
+						//data on the tile?
+						if (tl.Data) {
+							int centerx = tlx+TILE_SIZE/2;
+							int centery = tly+TILE_SIZE/2;
+							g.drawImage(DATA_IMAGE, centerx-10, centery-12, null);
 						}
 						
 						//agent on the tile?
@@ -891,6 +895,7 @@ public class DataBattleView extends Widget {
 								case Done:
 									//draw "check"
 									g.drawImage(CHECK_IMAGE, tlx+TILE_SIZE-10, tly-2, null);
+								default:
 								}
 								
 								//draw team
@@ -1004,6 +1009,18 @@ public class DataBattleView extends Widget {
 			}
 		});
 		//
+		mTarget.onCreditCollect.connect(new ListenerCreditCollect() {
+			public void onCreditCollect(Vec sq) {
+				mParticleHandler.addParticleEffect(sq, CREDIT_COLOR);
+			}
+		});
+		//
+		mTarget.onDataCollect.connect(new ListenerDataCollect() {
+			public void onDataCollect(Vec sq) {
+				mParticleHandler.addParticleEffect(sq, Color.white);
+			}
+		});
+		//
 		Widget w = new BoardView();
 		w.setSize(new UDim(mTarget.getSize().fvec().mul(TILE_SIZE)));
 		w.setPos(new UDim(mTarget.getSize().fvec().mul(TILE_SIZE).neg().div(2), new FVec(0.5f, 0.5f)));
@@ -1101,14 +1118,24 @@ public class DataBattleView extends Widget {
 		}
 		
 		//win
-		boolean foundUnit = false;
-		for (Team t : mTarget.getTeams()) {
-			if (t != mTeam && t.getNumAgents() > 0) {
-				foundUnit = true;
-				break;
+		boolean victory;
+		
+		//if all data is collected, we win
+		if (mTarget.getInfo().getDatas().length != 0) {
+			victory = mTeam.getCollectedData() == mTarget.getInfo().getDatas().length;
+		}
+		//otherwise all enemy programs should be destroyed
+		else {
+			victory = true;
+			for (Team t : mTarget.getTeams()) {
+				if (t != mTeam && t.getNumAgents() > 0) {
+					victory = false;
+					break;
+				}
 			}
 		}
-		if (!foundUnit) {
+		
+		if (victory) {
 			if (mTarget.getTarget() != null) {
 				if (mTarget.getTarget().NStatus != NodeMap.Node.Status.Defeated) {
 					mTeam.collectCredit(mTarget.getInfo().getBonus());
@@ -1167,4 +1194,5 @@ public class DataBattleView extends Widget {
 	private static final Image MOVETO_RIGHT_OVERLAY_IMAGE = ResourceLoader.LoadImage("TileOverlayMoveToRight.png");
 	private static final Image UPLOAD_OVERLAY_IMAGE = ResourceLoader.LoadImage("TileOverlayUpload.png");
 	private static final Image CREDIT_IMAGE = ResourceLoader.LoadImage("TileCredit.png");
+	private static final Image DATA_IMAGE = ResourceLoader.LoadImage("TileData.png");
 }

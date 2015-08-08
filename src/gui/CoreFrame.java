@@ -1,6 +1,6 @@
 package gui;
 
-import java.awt.Frame;
+import java.awt.Panel;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -15,8 +15,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import util.Vec;
 import input.*;
 
-public class CoreFrame extends Frame implements CoreApp, 
-	MouseListener, MouseMotionListener, MouseWheelListener, KeyListener, WindowListener {	
+public class CoreFrame extends Panel implements CoreApp, 
+	MouseListener, MouseMotionListener, MouseWheelListener, KeyListener {	
 	//CoreApp methods
 	
 	public RenderTarget getRenderTarget() {
@@ -40,7 +40,7 @@ public class CoreFrame extends Frame implements CoreApp,
 	}
 	
 	public final void setRenderSize(Vec v) {
-		setSize(v.getX(), v.getY()+Y_TRANS);
+		setSize(v.getX(), v.getY());
 		mAppletSize = v;
 	}
 
@@ -93,7 +93,7 @@ public class CoreFrame extends Frame implements CoreApp,
 		mouseMoved(evt);
 	}
 	public void mouseMoved(java.awt.event.MouseEvent evt) {
-		mInput.setMousePos(new Vec(evt.getX(), evt.getY()-Y_TRANS));
+		mInput.setMousePos(new Vec(evt.getX(), evt.getY()));
 		onEventInternal(new MouseEvent(MouseEvent.MouseEventType.Move, mInput));
 	}
 	public MouseEvent.MouseButton translateButton(int bn) {
@@ -118,24 +118,6 @@ public class CoreFrame extends Frame implements CoreApp,
 		mInput.setButton(bn, false);
 		onEventInternal(new MouseEvent(MouseEvent.MouseEventType.Release, mInput, bn));
 	}
-
-	public void windowClosing(java.awt.event.WindowEvent e)
-	{
-		dispose();
-		System.exit(0);
-	}
-	public void windowOpened(java.awt.event.WindowEvent e)
-	{ }
-	public void windowIconified(java.awt.event.WindowEvent e)
-	{ }
-	public void windowClosed(java.awt.event.WindowEvent e)
-	{ }
-	public void windowDeiconified(java.awt.event.WindowEvent e)
-	{ }
-	public void windowActivated(java.awt.event.WindowEvent e)
-	{ }
-	public void windowDeactivated(java.awt.event.WindowEvent e)
-	{ }
 	
 	///////////// members ////////////////
 	//////////////////////////////////////
@@ -155,14 +137,12 @@ public class CoreFrame extends Frame implements CoreApp,
 		}	
 	};
 
-	private int Y_TRANS = 20;
-
 	///////////// applet //////////////
 	///////////////////////////////////
 	
 	private static final long serialVersionUID = 1L;
 	public CoreFrame() {
-		Y_TRANS = getInsets().top > 0 ? getInsets().top : 30;
+		//Y_TRANS = getInsets().top > 0 ? getInsets().top : 50;
 		onInit();
 		//System.out.println("Created Buffer size: <" + getSize().getWidth() + ", " + getSize().getHeight() + ">");
 		mBackBuffer = new BufferedImage((int)getSize().getWidth(), (int)getSize().getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -176,14 +156,13 @@ public class CoreFrame extends Frame implements CoreApp,
 		addKeyListener(CoreFrame.this);
 		addMouseMotionListener(CoreFrame.this);
 		addMouseWheelListener(CoreFrame.this);
-		addWindowListener(CoreFrame.this);
 	}
 	public void update(Graphics g) {
 		paint(g);
 		getRenderTarget().getContext().clearRect(0, 0, (int)getSize().getWidth(), (int)getSize().getHeight());
 	}
 	public void paint(Graphics g) {
-		g.drawImage(mBackBuffer, 0, 0+Y_TRANS, null);
+		g.drawImage(mBackBuffer, 0, 0, null);
 	}
 }
 

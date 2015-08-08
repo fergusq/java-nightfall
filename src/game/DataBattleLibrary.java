@@ -34,6 +34,16 @@ public class DataBattleLibrary {
 				tmpUploads.add(ent);
 			}
 			info.setUploads(tmpUploads.toArray(new DataBattleInfo.UploadEntry[0]));
+
+			//data slots
+			ArrayList<DataBattleInfo.DataEntry> tmpDatas = new ArrayList<DataBattleInfo.DataEntry>();
+			if (battle.get("dataSlots") != null)
+				for (JSNode data : ((JSArray)battle.get("dataSlots")).getChildren()) {
+					DataBattleInfo.DataEntry ent = new DataBattleInfo.DataEntry();
+					ent.Pos = JSUtil.toFVec(data).vec();
+					tmpDatas.add(ent);
+				}
+			info.setDatas(tmpDatas.toArray(new DataBattleInfo.DataEntry[0]));
 			
 			//credits
 			//TODO:FIXME

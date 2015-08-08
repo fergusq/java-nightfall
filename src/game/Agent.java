@@ -41,6 +41,15 @@ public class Agent {
 					mBoard.onCreditCollect.fire(targetsq);
 				}
 			}
+			
+			// collect data
+			if (tl.Data) {
+				if (getTeam().getInventory() != null) {
+					getTeam().collectData();
+					tl.Data = false;
+					mBoard.onDataCollect.fire(targetsq);
+				}
+			}
 
 			int oldsz = mTail.size();
 			//not at max size, add a new square at end

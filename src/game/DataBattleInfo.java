@@ -16,6 +16,10 @@ public class DataBattleInfo {
 	public static class UploadEntry {
 		Vec Pos;
 	}
+
+	public static class DataEntry {
+		Vec Pos;
+	}
 	
 	public Vec getBoardSize() {
 		return mBoardSize;
@@ -37,6 +41,14 @@ public class DataBattleInfo {
 	
 	public String getName() {
 		return mName;
+	}
+
+	public DataEntry[] getDatas() {
+		return mData;
+	}
+
+	public void setDatas(DataEntry[] datas) {
+		mData = datas;
 	}
 	
 	public CreditEntry[] getCredits() {
@@ -90,6 +102,7 @@ public class DataBattleInfo {
 	private CreditEntry[] mCredits;
 	private UnitEntry[] mUnits;
 	private UploadEntry[] mUploads;
+	private DataEntry[] mData;
 	private boolean[][] mFilled;
 	private String mName;
 	private Vec mBoardSize;

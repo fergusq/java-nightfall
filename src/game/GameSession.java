@@ -203,6 +203,11 @@ public class GameSession {
 			tile.Credit = cent.Amount;
 		}
 		//
+		for (DataBattleInfo.DataEntry dent : info.getDatas()) {
+			DataBattle.Tile tile = battle.getTile(dent.Pos);
+			tile.Data = true;
+		}
+		//
 		mDataBattleView = new DataBattleView(battle, myTeam, this, ai);
 		mDataBattleView.setSize(new UDim(0, 0, 1, 1));
 		mDataBattleView.setParent(mGuiRoot);

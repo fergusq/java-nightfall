@@ -1,26 +1,22 @@
 package game;
 
 import util.*;
-import game.AgentInfo.Ability;
 import gui.*;
 import input.*;
-import java.awt.Color;
-import java.awt.BorderLayout;
-import java.io.IOException;
+
+import java.awt.Frame;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class WMain extends CoreFrame {
 	public static final int WIDTH = 1000;
 
-	public static <T> T[] A(T... ts) {return ts;}
 	public void onInit() {
-		setRenderSize(new Vec(WIDTH, 630));
+		setRenderSize(new Vec(WIDTH, 600));
 		setFPS(30);
-		//setLayout(new BorderLayout());
-		//
 		GameSession session = new GameSession();
 		mGui = new WidgetRoot();
 		session.setGuiRoot(mGui);
-		//session.enterDataBattle(session.getDataBattleLibrary().getDataBattleByName("TestMap"));
 		session.enterNodeMap();
 		mGui.invokeLayout(new Vec(WIDTH, 600));		
 	}
@@ -28,7 +24,6 @@ public class WMain extends CoreFrame {
 	long i = 0;
 
 	public void onStep() {
-		//mAI.step();
 		mGui.invokeRender(getRenderTarget());
 		render();
 	}
@@ -38,11 +33,20 @@ public class WMain extends CoreFrame {
 	}
 	
     public static void main(String[] args) {
-	WMain main = new WMain();
-	main.setVisible(true);
+    	WMain main = new WMain();
+    	Frame window = new Frame();
+    	window.add(main);
+    	window.setTitle("Nightfall");
+    	window.setSize(WIDTH, 640);
+    	window.setVisible(true);
+    	window.addWindowListener(new WindowAdapter() {
+    		@Override
+    		public void windowClosing(WindowEvent e) {
+    			window.dispose();
+    			System.exit(0);
+    		}
+		});
     }
 
 	WidgetRoot mGui;
-	//DataBattleView mView;
-	//AIController mAI;
 }
