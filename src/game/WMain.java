@@ -24,7 +24,10 @@ public class WMain extends CoreFrame {
 	long i = 0;
 
 	public void onStep() {
-		mGui.invokeRender(getRenderTarget());
+		synchronized (this) {
+			getRenderTarget().getContext().clearRect(0, 0, (int)getSize().getWidth(), (int)getSize().getHeight());
+			mGui.invokeRender(getRenderTarget());
+		}
 		render();
 	}
 	

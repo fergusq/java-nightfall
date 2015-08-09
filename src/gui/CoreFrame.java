@@ -59,6 +59,7 @@ public class CoreFrame extends Panel implements CoreApp,
 			}
 			//step
 			onStep();
+			
 			try {
 				Thread.sleep((long)(1/mFPS*1000));
 			} catch (InterruptedException e) {}
@@ -159,10 +160,11 @@ public class CoreFrame extends Panel implements CoreApp,
 	}
 	public void update(Graphics g) {
 		paint(g);
-		getRenderTarget().getContext().clearRect(0, 0, (int)getSize().getWidth(), (int)getSize().getHeight());
 	}
 	public void paint(Graphics g) {
-		g.drawImage(mBackBuffer, 0, 0, null);
+		synchronized (this) {
+			g.drawImage(mBackBuffer, 0, 0, null);
+		}
 	}
 }
 
