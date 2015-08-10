@@ -11,4 +11,4 @@ build/game/WMain.class: src/game/WMain.java
 	javac -source 1.7 -target 1.7 -sourcepath src src/game/WMain.java -d build
 
 nightfall.jar: classes build/game/WMain.class
-	jar cvf nightfall.jar -C build/ .
+	jar cvmf manifest.txt nightfall.jar -C build/ .
