@@ -7,7 +7,6 @@ import util.*;
 import java.awt.Color;
 import java.awt.Image;
 
-import javax.xml.soap.MimeHeader;
 
 public class AgentInfo {
 	//an ability
