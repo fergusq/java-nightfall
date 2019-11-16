@@ -30,7 +30,7 @@ The game will not work without NightfallPack and DevPack! If you launched the ga
 
 ## Compiling
 
-There is a prebuilt version in the releases section.
+There is a prebuilt version: [nightfall.jar](https://github.com/fergusq/java-nightfall/releases/download/v1/nightfall.jar).
 
 ```
 make nightfall.jar
