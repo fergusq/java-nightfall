@@ -13,9 +13,9 @@ The zones are the most important lacking feature.
 
 Unzip these in `~/.nightfall/AddOns/`.
 
-* [NightfallPack](https://www.kaivos.org/pelit/NightfallPack.zip): Contains textures from the original _The Nightfall Incident_.
-* [DevPack](https://www.kaivos.org/pelit/DevPack.zip): Contains tutorial and remakes of levels from the original game.
-* [HackerBases](https://www.kaivos.org/pelit/HackerBases.zip): A small story of a hacker whose employer's servers are corrupted.
+* [NightfallPack](https://iikka.kapsi.fi/nightfall/NightfallPack.zip): Contains textures from the original _The Nightfall Incident_.
+* [DevPack](https://iikka.kapsi.fi/nightfall/DevPack.zip): Contains tutorial and remakes of levels from the original game.
+* [HackerBases](https://iikka.kapsi.fi/nightfall/HackerBases.zip): A small story of a hacker whose employer's servers are corrupted.
 
 ```sh
 mkdir -p ~/.nightfall/AddOns
